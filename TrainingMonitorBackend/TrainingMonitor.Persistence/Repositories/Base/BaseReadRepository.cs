@@ -18,7 +18,7 @@ namespace TrainingMonitor.Persistence.Repositories.Base
             _context = context;
         }
 
-        public virtual TEntity GetById(TKey id)
+        public virtual TEntity FindById(TKey id)
         {
             var set = GetSet();
             return set.Find(id);

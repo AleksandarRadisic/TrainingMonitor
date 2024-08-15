@@ -74,6 +74,7 @@ builder.Services.AddScoped<ITrainingWriteRepository, TrainingWriteRepository>();
 builder.Services.AddScoped<ITrainingReadRepository, TrainingReadRepository>();
 builder.Services.AddScoped<IExceptionHandler, ExceptionHandler>();
 builder.Services.AddScoped<IHttpContextExtractor, HttpContextExtractor>();
+builder.Services.AddScoped<ITrainingService, TrainingService>();
 
 // Add services to the container.
 
