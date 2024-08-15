@@ -16,7 +16,7 @@ namespace TrainingMonitor.Persistence.EfStructures
             return new AppDbContext(optionsBuilder.Options);
         }
 
-        private static DbContextOptionsBuilder<AppDbContext> SetupOptions(string connectionString)
+        public static DbContextOptionsBuilder<AppDbContext> SetupOptions(string connectionString)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             optionsBuilder.UseNpgsql(connectionString);

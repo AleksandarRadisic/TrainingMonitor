@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 using TrainingMonitor.API.Swagger;
+using TrainingMonitor.Persistence.EfStructures;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +42,19 @@ builder.Services.AddAuthentication(cfg =>
         ValidateIssuer = true,
         ValidateAudience = false,
     };
+});
+
+using (var context = new AppDbContextFactory().CreateDbContext(new[] { builder.Configuration.GetConnectionString("connectionString") }))
+{
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
+}
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("connectionString"));
 });
 
 // Add services to the container.

@@ -16,4 +16,9 @@
     <Folder Include="Dto\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TrainingMonitor.Domain\TrainingMonitor.Domain.csproj" />
+    <ProjectReference Include="..\TrainingMonitor.Persistence\TrainingMonitor.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
