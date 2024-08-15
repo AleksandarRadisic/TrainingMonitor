@@ -10,5 +10,7 @@ namespace TrainingMonitor.Domain.PersistenceInterfaces
 {
     public interface IUserReadRepository : IBaseReadRepository<Guid, User>
     {
+        public User FindByEmailAndPassword(string email, string password);
+        public User FindByEmail(string email);
     }
 }

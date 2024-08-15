@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TrainingMonitor.API.Dto;
+using TrainingMonitor.API.Utilities.Interface;
+using TrainingMonitor.Domain.Model;
+using TrainingMonitor.Domain.Services.Interface;
 
 namespace TrainingMonitor.API.Controllers
 {
@@ -7,17 +12,59 @@ namespace TrainingMonitor.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IHttpContextExtractor _contextExtractor;
+        private readonly IExceptionHandler _exceptionHandler;
+        private readonly IUserService _userService;
+
+        public UsersController(IHttpContextExtractor contextExtractor, IExceptionHandler exceptionHandler, IUserService userService)
+        {
+            _exceptionHandler = exceptionHandler;
+            _userService = userService;
+            _contextExtractor = contextExtractor;
+        }
 
         [HttpPost("register")]
-        public IActionResult RegisterUser()
+        public IActionResult RegisterUser(RegistrationDto dto)
         {
-            return Ok();
+            var user = new User
+            {
+                Email = dto.Email,
+                Gender = dto.Gender,
+                Name = dto.Name,
+                Surname = dto.Surname,
+                Password = dto.Password
+            };
+            try
+            {
+                _userService.Register(user);
+            }
+            catch (Exception ex)
+            {
+                var exResponse = _exceptionHandler.CreateExceptionResponse(ex);
+                return StatusCode((int)exResponse.Item1, exResponse.Item2);
+            }
+            return Ok("Registration finished successfully");
         }
 
         [HttpPost("login")]
-        public IActionResult LogIn()
+        public IActionResult LogIn(LogInDto dto)
         {
-            return Ok();
+            try
+            {
+                return Ok(_userService.Login(dto.Email, dto.Password));
+            }
+            catch (Exception ex)
+            {
+                var exResponse = _exceptionHandler.CreateExceptionResponse(ex);
+                return StatusCode((int)exResponse.Item1, exResponse.Item2);
+            }
+        }
+
+        [HttpGet("authtest")]
+        [Authorize]
+        public IActionResult AuthTest()
+        {
+            return Ok(_contextExtractor.GetUserIdFromContext(HttpContext));
         }
     }
 }

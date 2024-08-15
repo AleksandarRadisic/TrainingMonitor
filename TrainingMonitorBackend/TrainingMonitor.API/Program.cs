@@ -5,7 +5,15 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 using TrainingMonitor.API.Swagger;
+using TrainingMonitor.API.Utilities.Implementation;
+using TrainingMonitor.API.Utilities.Interface;
+using TrainingMonitor.Domain.PersistenceInterfaces;
+using TrainingMonitor.Domain.Services.Implementation;
+using TrainingMonitor.Domain.Services.Interface;
+using TrainingMonitor.Domain.Utilities.Implementation;
+using TrainingMonitor.Domain.Utilities.Interface;
 using TrainingMonitor.Persistence.EfStructures;
+using TrainingMonitor.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +65,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("connectionString"));
 });
 
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IJwtUtility, JwtUtility>();
+builder.Services.AddScoped<IEncryptionUtility, EncryptionUtility>();
+builder.Services.AddScoped<IUserReadRepository, UserReadRepository>();
+builder.Services.AddScoped<IUserWriteRepository, UserWriteRepository>();
+builder.Services.AddScoped<ITrainingWriteRepository, TrainingWriteRepository>();
+builder.Services.AddScoped<ITrainingReadRepository, TrainingReadRepository>();
+builder.Services.AddScoped<IExceptionHandler, ExceptionHandler>();
+builder.Services.AddScoped<IHttpContextExtractor, HttpContextExtractor>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -77,8 +95,8 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseCors("AllowAnyOrigin");
 
