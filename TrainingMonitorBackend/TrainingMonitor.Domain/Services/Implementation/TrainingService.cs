@@ -30,5 +30,21 @@ namespace TrainingMonitor.Domain.Services.Implementation
             }
             _trainingWriteRepository.Add(training);
         }
+
+        public MonthlyTrainingReport GetUserTrainingReportForMonth(int year, int month, Guid userId)
+        {
+            var firstDayOfMonth = new DateTime(year, month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            var firstDayOfFirstWeek = firstDayOfMonth.AddDays(-(int)firstDayOfMonth.DayOfWeek + (int)DayOfWeek.Monday);
+            var lastDayOfLastWeek = lastDayOfMonth.AddDays(7 - (int)lastDayOfMonth.DayOfWeek + (int)DayOfWeek.Sunday)
+                .AddHours(23)
+                .AddMinutes(59)
+                .AddSeconds(59);
+            var timeRange = new TimeRange(firstDayOfFirstWeek, lastDayOfLastWeek);
+            var trainings = _trainingReadRepository.FindUserWeeklyTrainingsTimeRange(userId,
+                timeRange);
+
+            return new MonthlyTrainingReport(trainings, timeRange);
+        }
     }
 }

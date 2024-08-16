@@ -45,5 +45,13 @@ namespace TrainingMonitor.API.Controllers
                 return StatusCode((int)exResponse.Item1, exResponse.Item2);
             }
         }
+
+        [HttpGet("{year:int}/{month:int}")]
+        [Authorize]
+        public IActionResult GetTrainingReportForMonth(int year, int month)
+        {
+            return Ok(_trainingService.GetUserTrainingReportForMonth(year, month,
+                _contextExtractor.GetUserIdFromContext(HttpContext)));
+        }
     }
 }

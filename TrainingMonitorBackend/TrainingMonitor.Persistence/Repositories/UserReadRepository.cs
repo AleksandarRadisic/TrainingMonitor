@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TrainingMonitor.Domain.Model;
 using TrainingMonitor.Domain.PersistenceInterfaces;
 using TrainingMonitor.Persistence.EfStructures;
@@ -24,6 +25,11 @@ namespace TrainingMonitor.Persistence.Repositories
         public User FindByEmail(string email)
         {
             return GetSet().FirstOrDefault(u => u.Email == email);
+        }
+
+        public User FindByIdEager(Guid id)
+        {
+            return GetSet().Include(u => u.Trainings).FirstOrDefault(u => u.Id == id);
         }
     }
 }

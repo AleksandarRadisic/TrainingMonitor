@@ -10,5 +10,6 @@ namespace TrainingMonitor.Domain.Services.Interface
     public interface ITrainingService
     {
         public void AddTraining(Training training);
+        public MonthlyTrainingReport GetUserTrainingReportForMonth(int year, int month, Guid userId);
     }
 }

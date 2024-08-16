@@ -11,5 +11,6 @@ namespace TrainingMonitor.Domain.Services.Interface
     {
         public void Register(User user);
         public string Login(string email, string password);
+        public User GetUser(Guid  id);
     }
 }

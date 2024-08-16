@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TrainingMonitor.API.Dto;
 using TrainingMonitor.API.Utilities.Interface;
 using TrainingMonitor.Domain.Model;
+using TrainingMonitor.Domain.PersistenceInterfaces;
 using TrainingMonitor.Domain.Services.Interface;
 
 namespace TrainingMonitor.API.Controllers
@@ -60,11 +61,22 @@ namespace TrainingMonitor.API.Controllers
             }
         }
 
-        [HttpGet("authtest")]
+        [HttpGet("logged")]
         [Authorize]
-        public IActionResult AuthTest()
+        public IActionResult GetLoggedUser()
         {
-            return Ok(_contextExtractor.GetUserIdFromContext(HttpContext));
+            try
+            {
+                var user = _userService.GetUser(_contextExtractor.GetUserIdFromContext(HttpContext));
+                if (user == null) return NotFound("User not found");
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                var exResponse = _exceptionHandler.CreateExceptionResponse(ex);
+                return StatusCode((int)exResponse.Item1, exResponse.Item2);
+            }
+
         }
     }
 }

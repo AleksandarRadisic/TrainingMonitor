@@ -43,5 +43,12 @@ namespace TrainingMonitor.Domain.Services.Implementation
 
             return _jwtUtility.GenerateToken(user);
         }
+
+        public User GetUser(Guid id)
+        {
+            var user = _userReadRepository.FindByIdEager(id);
+            user.Trainings = user.Trainings.OrderBy(t => t.TrainingDateTime).ToList();
+            return _userReadRepository.FindByIdEager(id);
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace TrainingMonitor.Domain.PersistenceInterfaces
     {
         public User FindByEmailAndPassword(string email, string password);
         public User FindByEmail(string email);
+        User FindByIdEager(Guid id);
     }
 }
