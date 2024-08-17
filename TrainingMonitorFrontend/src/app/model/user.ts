@@ -20,25 +20,3 @@ export function convertGenderEnumToString(genderEnum: number): string {
             return 'Unknown';
     }
 }
-
-export enum TrainingType {
-    Cardio,
-    Strength,
-    Flexibility,
-    Functional
-}
-
-export function convertTrainingTypeToString(type: TrainingType): string {
-    switch (type) {
-        case TrainingType.Cardio:
-            return 'Cardio';
-        case TrainingType.Strength:
-            return 'Strength';
-        case TrainingType.Flexibility:
-            return 'Flexibility';
-        case TrainingType.Functional:
-            return 'Functional';
-        default:
-            return 'Unknown';
-    }
-}
