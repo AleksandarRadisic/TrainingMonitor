@@ -1,0 +1,21 @@
+<div *ngIf="user">
+    <h1>Welcome, {{ user?.name }} {{ user?.surname }}</h1>
+    <p>Email: {{ user?.email }}</p>
+    <p>Gender: {{ user?.gender }}</p>
+
+    <h2>Your Trainings</h2>
+    <ul>
+        <li *ngFor="let training of user?.trainings">
+            <strong>ID:</strong> {{ training.id }}<br>
+            <strong>Date and Time:</strong> {{ training.trainingDateTime | date:'yyyy-MM-dd HH:mm' }}<br>
+            <strong>Intensity:</strong> {{ training.intensity }}<br>
+            <strong>Fatigue:</strong> {{ training.fatigue }}<br>
+            <strong>Duration:</strong> {{ training.durationInMinutes }} minutes<br>
+            <strong>Calories Spent:</strong> {{ training.caloriesSpent }}<br>
+            <strong>Type:</strong> {{ training.trainingType }}<br>
+        </li>
+    </ul>
+</div>
+<div *ngIf="!user">
+    <p>Loading user data...</p>
+</div>
