@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { convertGenderEnumToString, convertTrainingTypeToString, User } from '../../model/user';
+import { convertGenderEnumToString, User } from '../../model/user';
 import { AuthService } from '../../service/auth.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { convertTrainingTypeToString } from '../../model/training';
 
 @Component({
   selector: 'app-home',

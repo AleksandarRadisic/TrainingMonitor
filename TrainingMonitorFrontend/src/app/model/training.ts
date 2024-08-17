@@ -8,3 +8,18 @@ export class Training {
     trainingType?: any;
     userId?: string;
   }
+
+  export function convertTrainingTypeToString(type: number): string {
+    switch (type) {
+        case 0:
+            return 'Cardio';
+        case 1:
+            return 'Strength';
+        case 2:
+            return 'Flexibility';
+        case 3:
+            return 'Functional';
+        default:
+            return 'Unknown';
+    }
+}
