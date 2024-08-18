@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3 mt-4">
+        <h3>Select year and month</h3>
+        <form #reportForm="ngForm" (ngSubmit)="onFetchReport(reportForm)">
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input type="number" name="year" ngModel required #year="ngModel" class="form-control" id="year"
+                    placeholder="Enter year" />
+                <div *ngIf="year.invalid && year.touched" class="text-danger">
+                    Year is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="month">Month</label>
+                <input type="number" name="month" ngModel required min="1" max="12" #month="ngModel"
+                    class="form-control" id="month" placeholder="Enter month (1-12)" />
+                <div *ngIf="month.invalid && month.touched" class="text-danger">
+                    Month must be between 1 and 12.
+                </div>
+            </div>
+            <button type="submit" [disabled]="reportForm.invalid" class="btn btn-primary">Fetch Report</button>
+        </form>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div *ngIf="monthlyReport" class="text-center">
+                <h4>Monthly Training Report ({{ monthlyReport.timeRange.start | date:'dd.MM.yyyy' }} -
+                    {{ monthlyReport.timeRange.end | date:'dd.MM.yyyy' }})</h4>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Week</th>
+                            <th>Total Training Time (minutes)</th>
+                            <th>Number of Trainings</th>
+                            <th>Average Intensity</th>
+                            <th>Average Fatigue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let weeklyReport of monthlyReport.weeklyTrainingReports">
+                            <td>{{ weeklyReport.timeRange.start | date:'dd.MM.yyyy' }} -
+                                {{ weeklyReport.timeRange.end | date:'dd.MM.yyyy' }}
+                            </td>
+                            <td *ngIf="weeklyReport.totalTrainingTime === 0" colspan="4">No trainings this week</td>
+                            <ng-container *ngIf="weeklyReport.totalTrainingTime !== 0">
+                                <td>{{ weeklyReport.totalTrainingTime }} minutes</td>
+                                <td>{{ weeklyReport.numberOfTrainings }}</td>
+                                <td>{{ weeklyReport.averageIntensity | number:'1.2-2' }}</td>
+                                <td>{{ weeklyReport.averageFatigue | number:'1.2-2' }}</td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

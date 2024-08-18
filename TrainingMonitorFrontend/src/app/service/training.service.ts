@@ -19,4 +19,13 @@ export class TrainingService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
     return this.http.post(this.baseUrl, model, {headers, responseType: "text" as "json"})
   }
+
+  getReport(year: number, month: number): any{
+    const token = localStorage.getItem('token')
+    if(!token){
+      this.router.navigate(['/login']);
+    }
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+    return this.http.get(this.baseUrl + `report/${year}/${month}`, {headers})
+  }
 }

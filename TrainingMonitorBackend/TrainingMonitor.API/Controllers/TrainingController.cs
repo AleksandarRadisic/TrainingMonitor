@@ -46,7 +46,7 @@ namespace TrainingMonitor.API.Controllers
             }
         }
 
-        [HttpGet("{year:int}/{month:int}")]
+        [HttpGet("report/{year:int}/{month:int}")]
         [Authorize]
         public IActionResult GetTrainingReportForMonth(int year, int month)
         {
