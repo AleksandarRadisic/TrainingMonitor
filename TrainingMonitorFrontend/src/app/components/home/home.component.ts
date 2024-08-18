@@ -4,6 +4,7 @@ import { AuthService } from '../../service/auth.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { convertTrainingTypeToString, Training } from '../../model/training';
 import { DateUtilitiesService } from '../../service/date-utilities.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,13 @@ import { DateUtilitiesService } from '../../service/date-utilities.service';
 export class HomeComponent {
   user: User | undefined
 
-  constructor(private authService: AuthService, private dateUtils: DateUtilitiesService) {
+  constructor(private authService: AuthService, private dateUtils: DateUtilitiesService, private router: Router) {
   }
 
   ngOnInit(): void {
+    if(!localStorage.getItem("token")){
+      this.router.navigate(['/login']);
+    }
     const observer = {
       next: (user: User) => {
         this.user = user;

@@ -21,6 +21,9 @@ export class AddTrainingComponent {
   constructor(private trainingService: TrainingService, private snackBar: MatSnackBar, private router: Router){}
 
   ngOnInit(): void {
+    if(!localStorage.getItem("token")){
+      this.router.navigate(['/login']);
+    }
     const now = new Date();
     this.maxDateTime = now.toISOString().slice(0, 16);
     this.defaultDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
