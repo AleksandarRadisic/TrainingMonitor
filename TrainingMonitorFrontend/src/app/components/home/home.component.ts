@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { convertGenderEnumToString, User } from '../../model/user';
 import { AuthService } from '../../service/auth.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { convertTrainingTypeToString } from '../../model/training';
+import { convertTrainingTypeToString, Training } from '../../model/training';
+import { DateUtilitiesService } from '../../service/date-utilities.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ import { convertTrainingTypeToString } from '../../model/training';
 export class HomeComponent {
   user: User | undefined
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private dateUtils: DateUtilitiesService) {
   }
 
   ngOnInit(): void {
@@ -24,6 +25,9 @@ export class HomeComponent {
         this.user.gender = convertGenderEnumToString(this.user.gender)
         if (this.user.trainings) {
           this.user.trainings.forEach(training => {
+            if (training.trainingDateTime !== undefined) {
+              training.trainingDateString = this.dateUtils.GetDateString(training.trainingDateTime);
+            }
             if (training.trainingType !== undefined) {
               training.trainingType = convertTrainingTypeToString(training.trainingType);
             }

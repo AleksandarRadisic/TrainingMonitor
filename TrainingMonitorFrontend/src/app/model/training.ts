@@ -7,6 +7,7 @@ export class Training {
     caloriesSpent?: number;
     trainingType?: any;
     userId?: string;
+    trainingDateString: string | undefined;
   }
 
   export function convertTrainingTypeToString(type: number): string {

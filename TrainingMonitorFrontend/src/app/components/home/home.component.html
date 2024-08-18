@@ -6,28 +6,30 @@
                     <h2>Welcome, {{ user.name }} {{ user.surname }}</h2>
                 </div>
                 <h3 class="text-center mb-4">Your Trainings</h3>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Date and Time</th>
-                            <th>Intensity</th>
-                            <th>Fatigue</th>
-                            <th>Duration</th>
-                            <th>Calories Spent</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let training of user?.trainings">
-                            <td>{{ training.trainingDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
-                            <td>{{ training.intensity }}</td>
-                            <td>{{ training.fatigue }}</td>
-                            <td>{{ training.durationInMinutes }} minutes</td>
-                            <td>{{ training.caloriesSpent }}</td>
-                            <td>{{ training.trainingType }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div *ngIf="user && user.trainings && user.trainings.length > 0; else noTrainings">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date and Time</th>
+                                <th>Intensity</th>
+                                <th>Fatigue</th>
+                                <th>Duration</th>
+                                <th>Calories Spent</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let training of user.trainings">
+                                <td>{{ training.trainingDateString }}</td>
+                                <td>{{ training.intensity }}</td>
+                                <td>{{ training.fatigue }}</td>
+                                <td>{{ training.durationInMinutes }} minutes</td>
+                                <td>{{ training.caloriesSpent }}</td>
+                                <td>{{ training.trainingType }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div *ngIf="!user" class="text-center">
                 <p>Loading user data...</p>
@@ -35,3 +37,7 @@
         </div>
     </div>
 </div>
+
+<ng-template #noTrainings>
+    <h4 class="text-center mb-4">You have no recorded trainings</h4>
+</ng-template>
