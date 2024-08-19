@@ -24,6 +24,12 @@ export class AuthService {
     );
   }
 
+  checkTokenAndRedirect(): void {
+    if (!localStorage.getItem('token')) {
+      this.router.navigate(['/login']);
+    }
+  }
+
   loggedUser(): any {
     const token = localStorage.getItem('token')
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)

@@ -23,7 +23,6 @@ export class LoginComponent {
   onSubmit(f: NgForm) {
     const loginObserver = {
       next: (x: any) => {
-        console.log(x);
         this.snackBar.open("Welcome!", "Dismiss");
         this.router.navigate(['/home']);
       },

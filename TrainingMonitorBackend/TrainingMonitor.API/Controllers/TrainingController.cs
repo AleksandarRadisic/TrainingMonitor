@@ -50,8 +50,17 @@ namespace TrainingMonitor.API.Controllers
         [Authorize]
         public IActionResult GetTrainingReportForMonth(int year, int month)
         {
-            return Ok(_trainingService.GetUserTrainingReportForMonth(year, month,
-                _contextExtractor.GetUserIdFromContext(HttpContext)));
+            try
+            {
+                return Ok(_trainingService.GetUserTrainingReportForMonth(year, month,
+                    _contextExtractor.GetUserIdFromContext(HttpContext)));
+            }
+            catch (Exception ex)
+            {
+                var exResponse = _exceptionHandler.CreateExceptionResponse(ex);
+                return StatusCode((int)exResponse.Item1, exResponse.Item2);
+            }
+
         }
     }
 }

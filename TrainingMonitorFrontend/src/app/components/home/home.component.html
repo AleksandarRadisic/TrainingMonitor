@@ -5,8 +5,8 @@
                 <div class="text-center mb-4">
                     <h2>Welcome, {{ user.name }} {{ user.surname }}</h2>
                 </div>
-                <h3 class="text-center mb-4">Your Trainings</h3>
                 <div *ngIf="user && user.trainings && user.trainings.length > 0; else noTrainings">
+                    <h3 class="text-center mb-4">Your Trainings</h3>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -39,5 +39,5 @@
 </div>
 
 <ng-template #noTrainings>
-    <h4 class="text-center mb-4">You have no recorded trainings</h4>
+    <h3 class="text-center mb-4">You have no recorded trainings</h3>
 </ng-template>

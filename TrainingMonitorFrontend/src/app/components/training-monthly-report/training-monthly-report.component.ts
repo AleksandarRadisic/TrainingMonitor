@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DateUtilitiesService } from '../../service/date-utilities.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-training-monthly-report',
@@ -16,15 +17,14 @@ import { FormsModule } from '@angular/forms';
 export class TrainingMonthlyReportComponent {
   monthlyReport: any;
 
-  constructor(private trainingService: TrainingService, private snackBar: MatSnackBar, private router: Router, private dateUtils: DateUtilitiesService) {}
+  constructor(private trainingService: TrainingService, private snackBar: MatSnackBar, private router: Router, private dateUtils: DateUtilitiesService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    if(!localStorage.getItem("token")){
-      this.router.navigate(['/login'])
-    }
+    this.authService.checkTokenAndRedirect()
   }
 
   onFetchReport(form: any) {
+    this.authService.checkTokenAndRedirect()
     const { year, month } = form.value;
     const observer = {
       next: (response: any) => {

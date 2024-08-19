@@ -20,9 +20,7 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    if(!localStorage.getItem("token")){
-      this.router.navigate(['/login']);
-    }
+    this.authService.checkTokenAndRedirect()
     const observer = {
       next: (user: User) => {
         this.user = user;

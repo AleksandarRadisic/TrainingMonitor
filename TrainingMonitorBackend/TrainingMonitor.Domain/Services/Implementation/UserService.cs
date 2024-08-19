@@ -47,7 +47,7 @@ namespace TrainingMonitor.Domain.Services.Implementation
         public User GetUser(Guid id)
         {
             var user = _userReadRepository.FindByIdEager(id);
-            user.Trainings = user.Trainings.OrderBy(t => t.TrainingDateTime).ToList();
+            user.Trainings = user.Trainings.OrderByDescending(t => t.TrainingDateTime).ToList();
             return _userReadRepository.FindByIdEager(id);
         }
     }
