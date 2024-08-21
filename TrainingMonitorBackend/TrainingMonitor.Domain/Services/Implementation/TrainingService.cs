@@ -36,7 +36,7 @@ namespace TrainingMonitor.Domain.Services.Implementation
             var firstDayOfMonth = new DateTime(year, month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
             var firstDayOfFirstWeek = firstDayOfMonth.AddDays(-(int)firstDayOfMonth.DayOfWeek + (int)DayOfWeek.Monday);
-            var lastDayOfLastWeek = lastDayOfMonth.AddDays(7 - (int)lastDayOfMonth.DayOfWeek + (int)DayOfWeek.Sunday)
+            var lastDayOfLastWeek = lastDayOfMonth.AddDays((7 - (int)lastDayOfMonth.DayOfWeek) % 7)
                 .AddHours(23)
                 .AddMinutes(59)
                 .AddSeconds(59);
