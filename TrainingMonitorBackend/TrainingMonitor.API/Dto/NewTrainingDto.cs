@@ -25,5 +25,6 @@ namespace TrainingMonitor.API.Dto
 
         [Required(ErrorMessage = "Training type is required")]
         public TrainingType TrainingType { get; set; }
+        public string? AdditionalNotes { get; set; }
     }
 }

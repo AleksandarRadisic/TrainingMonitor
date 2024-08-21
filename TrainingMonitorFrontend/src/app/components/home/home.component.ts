@@ -35,6 +35,7 @@ export class HomeComponent {
             }
           });
         }
+        console.log(this.user.trainings)
       },
       error: (err: any) => {
         console.error('Failed to load user', err);

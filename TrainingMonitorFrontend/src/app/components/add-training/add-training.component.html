@@ -64,6 +64,10 @@
                         <div *ngIf="trainingType.errors?.['required']">Training type is required.</div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="additionalNotes">Additional Notes</label>
+                    <textarea name="additionalNotes" ngModel class="form-control" id="additionalNotes" rows="4"></textarea>
+                </div>
 
                 <button type="submit" [disabled]="trainingForm.invalid" class="btn btn-primary">Add Training</button>
             </form>

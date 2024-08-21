@@ -8,6 +8,7 @@ export class Training {
     trainingType?: any;
     userId?: string;
     trainingDateString: string | undefined;
+    additionalNotes?: string;
   }
 
   export function convertTrainingTypeToString(type: number): string {

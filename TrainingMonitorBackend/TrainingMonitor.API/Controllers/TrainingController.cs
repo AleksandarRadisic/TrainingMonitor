@@ -36,7 +36,8 @@ namespace TrainingMonitor.API.Controllers
                         dto.Fatigue,
                         dto.DurationInMinutes,
                         dto.CaloriesSpent,
-                        _contextExtractor.GetUserIdFromContext(HttpContext)));
+                        _contextExtractor.GetUserIdFromContext(HttpContext), 
+                        dto.AdditionalNotes));
                 return Ok("Training added");
             }
             catch (Exception ex)

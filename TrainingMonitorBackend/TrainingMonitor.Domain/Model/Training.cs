@@ -19,9 +19,10 @@ namespace TrainingMonitor.Domain.Model
         public TrainingType TrainingType { get; private set; }
         public Guid UserId { get; private set; }
         public User User { get; private set; }
+        public string? AdditionalNotes { get; private set; }
 
         public Training(){}
-        public Training(TrainingType type, DateTime trainingDateTime, byte intensity, byte fatigue, uint durationInMinutes, double caloriesSpent, Guid userId)
+        public Training(TrainingType type, DateTime trainingDateTime, byte intensity, byte fatigue, uint durationInMinutes, double caloriesSpent, Guid userId, string additionalNotes)
         {
             TrainingType = type;
             TrainingDateTime = trainingDateTime;
@@ -31,6 +32,7 @@ namespace TrainingMonitor.Domain.Model
             CaloriesSpent = caloriesSpent;
             UserId = userId;
             validate();
+            AdditionalNotes = additionalNotes;
         }
         private void validate()
         {
