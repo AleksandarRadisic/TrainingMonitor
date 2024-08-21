@@ -41,7 +41,7 @@ namespace TrainingMonitor.Domain.Services.Implementation
                 .AddMinutes(59)
                 .AddSeconds(59);
             var timeRange = new TimeRange(firstDayOfFirstWeek, lastDayOfLastWeek);
-            var trainings = _trainingReadRepository.FindUserWeeklyTrainingsTimeRange(userId,
+            var trainings = _trainingReadRepository.FindUserTrainingsWithinTimeRange(userId,
                 timeRange);
 
             return new MonthlyTrainingReport(trainings, timeRange);

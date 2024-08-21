@@ -10,6 +10,6 @@ namespace TrainingMonitor.Domain.PersistenceInterfaces
 {
     public interface ITrainingReadRepository : IBaseReadRepository<Guid, Training>
     {
-        public IList<Training> FindUserWeeklyTrainingsTimeRange(Guid userId, TimeRange timeRange);
+        public IList<Training> FindUserTrainingsWithinTimeRange(Guid userId, TimeRange timeRange);
     }
 }

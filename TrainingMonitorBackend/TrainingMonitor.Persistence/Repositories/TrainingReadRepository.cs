@@ -17,7 +17,7 @@ namespace TrainingMonitor.Persistence.Repositories
         {
         }
 
-        public IList<Training> FindUserWeeklyTrainingsTimeRange(Guid userId, TimeRange timeRange)
+        public IList<Training> FindUserTrainingsWithinTimeRange(Guid userId, TimeRange timeRange)
         {
             var userTrainingsInMonth = GetSet().
                 Where(t => t.UserId == userId && 
